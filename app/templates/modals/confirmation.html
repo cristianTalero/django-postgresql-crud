@@ -1,0 +1,34 @@
+<div class="modal fade" id="confirmation" tabindex="-1" aria-labelledby="confirmationLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      {% if action == 'edit' %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationLabel">Are you sure?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <span>You are about to change a task!</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <input type="submit" value="Confirm edit" class="btn btn-primary">
+        </div>
+
+      {% elif action == 'delete' %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationLabel">Are you sure?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <span>You are about to delete a task!</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a class="btn btn-danger" href="{% url 'delete' id=id %}">
+            Confirm delete
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

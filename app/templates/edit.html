@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}Edit task{% endblock %}
+
+{% block content %}
+
+<div class="col-md-4 offset-md-4">
+    <h1 class="text-center mb-5">Edit a Task</h1>
+
+    <form action="{% url 'save_edited' %}" method="post" class="card card-body">
+        {% csrf_token %}
+        <span class="h4 text-center">ID: {{ task.id }}</span>
+        <hr>
+        <input type="hidden" name="id" value="{{ task.id }}">
+        {% for field in task_form %}
+            <div class="form-group mb-2">
+                {% if field.name == 'status' %}
+                    <div class="form-check form-switch">
+                        <label for="{{ field.name }}" class="h5 form-check-label">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% else %}
+                    <label for="{{ field.name }}" class="h5">{{ field.label }}</label>
+                    {{ field }}
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="button" class="btn btn-success form-control" data-bs-toggle="modal" data-bs-target="#confirmation">
+          Edit task
+        </button>
+
+        {% include 'modals/confirmation.html' with action='edit' %}
+    </form>
+</div>
+
+{% endblock %}

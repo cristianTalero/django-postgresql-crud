@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+
+<h1>Title: {{ task.title }}</h1>
+<p><strong>Description:</strong> {{ task.description }}</p>
+
+{% if task.status %}
+    <h3 class="text-success">Status: Done</h3>
+{% else %}
+    <h3 class="text-danger">Status: In process</h3>
+{% endif %}
+
+<hr>
+
+<p><strong>Created at:</strong> {{ task.created_at }}</p>
+<p><strong>Updated at:</strong> {{ task.updated_at }}</p>
+
+<hr>
+
+<div>
+    <a class="btn btn-outline-secondary btn-xl" href="{% url 'index' %}">
+      Home <i class="bi-house-fill"></i>
+    </a>
+    <a class="btn btn-outline-primary btn-xl" href="{% url 'edit' id=task.id %}">
+      Edit <i class="bi-pencil-fill"></i>
+    </a>
+    <button type="button" class="btn btn-outline-danger btn-xl" data-bs-toggle="modal" data-bs-target="#confirmation">
+        Delete <i class="bi-trash-fill"></i>
+    </button>
+</div>
+
+{% include 'modals/confirmation.html' with action='delete' id=task.id %}
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}Delete task{% endblock %}
+
+{% block content %}
+    {% if status %}
+        <div class="alert alert-success" role="alert">
+            Task deleted successfully
+            <a class="btn btn-success btn-sm" href="{% url 'index' %}">
+                OK
+            </a>
+        </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            Task doesn't exists!
+            <a class="btn btn-danger btn-sm" href="{% url 'index' %}">
+                OK
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

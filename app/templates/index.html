@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block title %}Django CRUD{% endblock %}
+
+{% block content %}
+
+  {% if tasks|length > 0 %}
+    <h1 class="text-center">Your Tasks</h1>
+
+    <hr>
+
+     <table class="table table-hover text-center mt-3">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Status</th>
+          <th scope="col">Created at</th>
+          <th scope="col">Updated at</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for task in tasks %}
+          <tr>
+            <th scope="row">{{ task.id }}</th>
+            <td style="max-width: 10rem; overflow: hidden; text-overflow: ellipsis;">
+              {{ task.title }}
+            </td>
+            <td style="max-width: 10rem; overflow: hidden; text-overflow: ellipsis;">
+              {{ task.description }}
+            </td>
+
+            {% if task.status %}
+              <td class="text-success"><i class="bi-check-circle-fill"></i></td>
+
+            {% else %}
+              <td class="text-danger"><i class="bi-x-circle-fill"></i></td>
+            {% endif %}
+
+            <td>{{ task.created_at }}</td>
+            <td>{{ task.updated_at }}</td>
+
+            <td>
+              <a class="btn btn-outline-success btn-sm" href="{% url 'task' id=task.id %}">
+                <i class="bi-eye-fill"></i>
+              </a>
+              <a class="btn btn-outline-primary btn-sm" href="{% url 'edit' id=task.id %}">
+                <i class="bi-pencil-fill"></i>
+              </a>
+              <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmation">
+                <i class="bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+
+          {% include 'modals/confirmation.html' with action='delete' id=task.id %}
+        {% endfor %}
+      </tbody>
+    </table>
+
+  {% else %}
+    <div class="text-center">
+      <h3 class="display-4">There is no tasks!</h3>
+      <a class="h5" href="{% url 'create' %}">
+        <i class="bi bi-plus-lg"></i> You can create one!
+      </a>
+    </div>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %}New task{% endblock %}
+
+{% block content %}
+
+<div class="col-md-4 offset-md-4">
+    <h1 class="text-center mb-5">Create a Task</h1>
+
+    <form action="{% url 'save' %}" method="post" class="card card-body">
+        {% csrf_token %}
+        {% for field in new_task %}
+            <div class="form-group mb-2">
+                <label for="{{field.name}}" class="h5">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Create" class=" btn btn-success form-control">
+    </form>
+</div>
+
+{% endblock %}
