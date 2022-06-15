@@ -1,3 +1,3 @@
 # Django CRUD
 
-A basic CRUD with Django and Sqlite3
+A basic CRUD with Django and PostgreSQL
